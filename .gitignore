@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+orders.jsonl
+*.tmp
+static/uploads/
+.pytest_cache/
+.DS_Store

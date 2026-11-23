@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: little-angels-boutique
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: STORAGE_BACKEND
+        value: supabase
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_PIN
+        sync: false
+      - key: WHATSAPP_NUMBER
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SUPABASE_BUCKET
+        value: little-angels-images

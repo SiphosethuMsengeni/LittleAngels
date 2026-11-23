@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "name": "White Floral Collar Dress",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["style-01.jpeg", "style-09.jpeg", "style-20.jpeg", "style-28.jpeg"],
+    "description": "A white dress with a floral collar."
+  },
+  {
+    "id": 2,
+    "name": "Floral Graphic Tee & Trousers",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["style-02.jpeg", "style-11.jpeg", "style-15.jpeg", "style-24.jpeg", "style-25.jpeg"],
+    "description": "A graphic tee paired with patterned trousers."
+  },
+  {
+    "id": 3,
+    "name": "White Top & Yellow Trousers",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["style-03.jpeg", "style-07.jpeg", "style-14.jpeg"],
+    "description": "A white top paired with yellow trousers."
+  },
+  {
+    "id": 4,
+    "name": "Pink Collared Dress",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["style-04.jpeg", "style-19.jpeg", "style-26.jpeg"],
+    "description": "A sleeveless pink collared dress."
+  },
+  {
+    "id": 5,
+    "name": "Blue Sleeveless Dress",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["style-05.jpeg", "style-08.jpeg", "style-12.jpeg", "style-22.jpeg", "style-29.jpeg"],
+    "description": "A light blue sleeveless dress."
+  },
+  {
+    "id": 6,
+    "name": "Pink Embroidered Waist Dress",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["style-06.jpeg", "style-13.jpeg", "style-16.jpeg", "style-18.jpeg", "style-21.jpeg", "style-27.jpeg"],
+    "description": "A pink dress with a decorative waist panel."
+  },
+  {
+    "id": 7,
+    "name": "Cream Vest & Trousers",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["style-10.jpeg", "style-17.jpeg", "style-23.jpeg"],
+    "description": "A cream vest and matching trousers."
+  }
+]

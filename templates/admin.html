@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shop Admin | Little Angels Boutique</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-top">
+      <a class="brand" href="/"><span class="brand-mark">♡</span><span><strong>{{ shop_name }}</strong><small>SHOP ADMIN</small></span></a>
+      <a href="/admin/logout">Log out</a>
+    </div>
+    {% with messages=get_flashed_messages(with_categories=true) %}
+      {% for category,message in messages %}<p class="flash {{ category }}">{{ message }}</p>{% endfor %}
+    {% endwith %}
+
+    <section class="admin-panel">
+      <h2>Product inventory</h2>
+      <p class="price-note">Update details, photos, sizes and stock. Set stock to zero to make a size unavailable. Removing a photo only unlinks it; it does not delete the file.</p>
+      <div class="admin-grid">
+        {% for p in products %}
+        <article class="admin-product">
+          <form method="post" action="{{ url_for('update_product', product_id=p.id) }}" enctype="multipart/form-data" class="admin-product-form">
+            <label class="admin-image-main"><img src="{{ p.images[0]|product_image_url }}" alt="{{ p.name }}"></label>
+            <strong class="admin-product-heading">{{ p.name }}</strong>
+            <div class="admin-image-list">
+              {% for image in p.images %}
+              <label class="admin-image-option">
+                <img src="{{ image|product_image_url }}" alt="Photo {{ loop.index }} of {{ p.name }}">
+                <span><input type="checkbox" name="remove_images" value="{{ image }}"> Remove photo</span>
+              </label>
+              {% endfor %}
+            </div>
+            <label>Product name<input name="name" value="{{ p.name }}" required maxlength="120"></label>
+            <label>Category<input name="category" value="{{ p.category }}" required maxlength="80"></label>
+            <label>Description<textarea name="description" rows="2" maxlength="1000">{{ p.description or '' }}</textarea></label>
+            <label>Price (R)<input name="price" type="number" min="0" step="0.01" value="{{ p.price if p.price is not none else '' }}" placeholder="Price on request"></label>
+            <div class="admin-size-heading"><strong>Sizes and stock</strong><button class="secondary-button" type="button" data-add-size>Add size</button></div>
+            <div class="admin-size-list" data-size-list>
+              {% for size in p.sizes %}
+              <div class="admin-size-row">
+                <label>Size<input name="size_name" value="{{ size.name }}" required maxlength="40"></label>
+                <label>Stock<input name="size_stock" type="number" min="0" max="100000" value="{{ size.stock }}" required></label>
+                <button class="remove-size-button" type="button" data-remove-size aria-label="Remove size">×</button>
+              </div>
+              {% endfor %}
+            </div>
+            <template data-size-template>
+              <div class="admin-size-row">
+                <label>Size<input name="size_name" required maxlength="40" placeholder="e.g. 4-5 years"></label>
+                <label>Stock<input name="size_stock" type="number" min="0" max="100000" value="0" required></label>
+                <button class="remove-size-button" type="button" data-remove-size aria-label="Remove size">×</button>
+              </div>
+            </template>
+            <label>Add photos<input name="images" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple></label>
+            <button class="primary-button full-button" type="submit">Save product</button>
+          </form>
+          <form method="post" action="{{ url_for('delete_product', product_id=p.id) }}" onsubmit="return confirm('Delete this product from the catalogue? Photo files will be kept.')">
+            <button class="delete-button full-button" type="submit">Delete product</button>
+          </form>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="admin-panel">
+      <h2>Add a product</h2>
+      <form method="post" action="{{ url_for('create_product') }}" enctype="multipart/form-data" class="admin-create-form admin-product-form">
+        <div class="admin-create-fields">
+          <label>Product name<input name="name" required maxlength="120"></label>
+          <label>Category<input name="category" required maxlength="80" value="Kidswear"></label>
+          <label>Description<textarea name="description" rows="2" maxlength="1000"></textarea></label>
+          <label>Price (R)<input name="price" type="number" min="0" step="0.01" placeholder="Price on request"></label>
+          <label>Product photos (JPG, PNG or WebP)<input name="images" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple required></label>
+        </div>
+        <div class="admin-size-heading"><strong>Sizes and opening stock</strong><button class="secondary-button" type="button" data-add-size>Add size</button></div>
+        <div class="admin-size-list" data-size-list>
+          <div class="admin-size-row">
+            <label>Size<input name="size_name" value="One size" required maxlength="40"></label>
+            <label>Stock<input name="size_stock" type="number" min="0" max="100000" value="0" required></label>
+            <button class="remove-size-button" type="button" data-remove-size aria-label="Remove size">×</button>
+          </div>
+        </div>
+        <template data-size-template>
+          <div class="admin-size-row">
+            <label>Size<input name="size_name" required maxlength="40" placeholder="e.g. 4-5 years"></label>
+            <label>Stock<input name="size_stock" type="number" min="0" max="100000" value="0" required></label>
+            <button class="remove-size-button" type="button" data-remove-size aria-label="Remove size">×</button>
+          </div>
+        </template>
+        <button class="primary-button" type="submit">Create product</button>
+      </form>
+    </section>
+
+    <section class="admin-panel">
+      <h2>Website orders</h2>
+      {% if orders %}
+        {% for order in orders %}
+        <div class="admin-order">
+          <strong>{{ order.order_reference }}</strong> · {{ order.created_at }} · {{ order.status }}<br>
+          <strong>{{ order.customer.name }}</strong> · {{ order.customer.phone }} · {{ order.customer.email }}<br>
+          {{ order.customer.delivery }} · {{ order.customer.address }}<br>
+          {% for item in order["items"] %}{{ item.name }}{% if item.size %} ({{ item.size }}){% endif %} &times; {{ item.quantity }}{% if not loop.last %}, {% endif %}{% endfor %}<br>
+          Notes: {{ order.customer.notes or 'None' }}
+        </div>
+        {% endfor %}
+      {% else %}
+        <p class="price-note">No website orders have been received yet.</p>
+      {% endif %}
+    </section>
+  </div>
+  <script>
+    document.addEventListener("click", event => {
+      const addButton = event.target.closest("[data-add-size]");
+      if (addButton) {
+        const form = addButton.closest("form");
+        form.querySelector("[data-size-list]").append(form.querySelector("template[data-size-template]").content.cloneNode(true));
+      }
+      const removeButton = event.target.closest("[data-remove-size]");
+      if (removeButton) removeButton.closest(".admin-size-row").remove();
+    });
+  </script>
+</body>
+</html>

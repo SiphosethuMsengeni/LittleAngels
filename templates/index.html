@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover sweet little styles at Little Angels Boutique. Browse our children's clothing collection and order online or on WhatsApp.">
+  <title>{{ shop_name }} | Little styles, big smiles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="announcement">Little looks. Lovely memories. Welcome to our boutique ♡</div>
+  <header class="site-header">
+    <a class="brand" href="#"><span class="brand-mark">♡</span><span><strong>Little Angels</strong><small>B O U T I Q U E</small></span></a>
+    <nav><a href="#home">Home</a><a href="#shop">Shop</a><a href="#about">Our story</a><a href="#contact">Contact</a></nav>
+    <button class="cart-button" id="open-cart" aria-label="Open shopping basket">Basket <span id="cart-count">0</span></button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <span class="eyebrow">MADE FOR LITTLE MOMENTS</span>
+        <h1>Little styles,<br><em>big smiles.</em></h1>
+        <p>Adorable outfits for the little ones who make every day brighter. Find a new favourite in our collection.</p>
+        <a class="primary-button" href="#shop">Explore the collection <span>↗</span></a>
+        <div class="hero-note"><span>♡</span> Carefully selected styles for little angels</div>
+      </div>
+      <div class="hero-art">
+        <div class="hero-photo-frame"><img src="{{ url_for('static', filename='images/style-01.jpeg') }}" alt="A look from the Little Angels collection"></div>
+        <div class="round-stamp">LITTLE<br>ANGELS<br><span>♡</span></div>
+        <div class="hero-flower">✿</div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <div><span>♡</span><p><strong>Sweet styles</strong><small>Lovely looks for little ones</small></p></div>
+      <div><span>✧</span><p><strong>Easy ordering</strong><small>Order online or on WhatsApp</small></p></div>
+      <div><span>☼</span><p><strong>Made with love</strong><small>A boutique full of charm</small></p></div>
+    </section>
+
+    <section class="shop-section" id="shop">
+      <div class="section-heading">
+        <div><span class="eyebrow">THE LITTLE ANGELS EDIT</span><h2>Shop the collection</h2><p>Find something lovely for your little one.</p></div>
+        <span class="collection-count">{{ products|length }} unique styles</span>
+      </div>
+      <div class="shop-tools">
+        <label class="search-box"><span>⌕</span><input id="product-search" type="search" placeholder="Search the collection..." aria-label="Search products"></label>
+        <select id="category-filter" aria-label="Filter by category">
+          <option value="all">All styles</option>
+          {% for category in products|map(attribute='category')|unique %}
+          <option value="{{ category }}">{{ category }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="product-grid" id="product-grid">
+        {% for product in products %}
+        <article class="product-card" data-name="{{ product.name|lower }}" data-category="{{ product.category }}">
+          <button class="product-image" type="button" data-preview="{{ product.id }}" aria-label="View {{ product.name }}">
+            <img src="{{ product.images[0]|product_image_url }}" alt="{{ product.name }}" loading="lazy">
+            <span class="image-heart">♡</span>
+          </button>
+          <div class="product-info">
+            <div><span class="product-category">{{ product.category }}</span><h3>{{ product.name }}</h3></div>
+            <div class="product-bottom"><span class="price">{% if product.price is not none %}R {{ '%.2f'|format(product.price) }}{% else %}Price on request{% endif %}<small class="stock-summary">{% set total_stock = product.sizes|sum(attribute='stock') %}{% if total_stock %}{{ total_stock }} in stock{% else %}Out of stock{% endif %}</small></span><button class="add-button" data-choose-size="{{ product.id }}" aria-label="Choose a size for {{ product.name }}" {% if not product.sizes|sum(attribute='stock') %}disabled{% endif %}>+</button></div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      <p class="empty-state" id="empty-state" hidden>No styles match your search. Try another name.</p>
+    </section>
+
+    <section class="story-section" id="about">
+      <div class="story-mark">♡</div><div><span class="eyebrow">A LITTLE ABOUT US</span><h2>For every little<br><em>special moment.</em></h2><p>Welcome to Little Angels Boutique, a happy place for discovering lovely children's clothing. We believe every little one deserves to feel comfortable, confident and extra special.</p></div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div><span class="eyebrow">WE'D LOVE TO HEAR FROM YOU</span><h2>Need a little help?</h2><p>Ask us about sizes, availability, pricing or your order. We're happy to help.</p></div>
+      <a class="primary-button" id="contact-whatsapp" href="#" target="_blank" rel="noopener">Chat with us on WhatsApp ↗</a>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">♡</span><span><strong>Little Angels</strong><small>B O U T I Q U E</small></span></a><p>Little styles, big smiles. © <span id="year"></span> Little Angels Boutique</p><a href="/admin/login">Shop admin</a></footer>
+
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping basket" aria-hidden="true">
+    <div class="drawer-header"><div><span class="eyebrow">YOUR LITTLE FINDS</span><h2>Your basket</h2></div><button id="close-cart" class="close-button" aria-label="Close basket">×</button></div>
+    <div class="cart-items" id="cart-items"><p class="cart-empty">Your basket is waiting for something lovely ♡</p></div>
+    <div class="cart-footer"><div class="cart-total"><span>Items</span><strong id="cart-total">0</strong></div><p class="price-note">Final prices and availability will be confirmed by the boutique.</p><button class="primary-button full-button" id="checkout-button">Continue to order</button></div>
+  </aside>
+
+  <div class="modal-backdrop product-modal-backdrop" id="product-modal">
+    <section class="product-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-title">
+      <button class="close-button product-modal-close" id="close-product" aria-label="Close product gallery">×</button>
+      <div class="gallery-main">
+        <button class="gallery-arrow gallery-previous" id="gallery-previous" type="button" aria-label="Previous photo">‹</button>
+        <img id="gallery-image" src="" alt="">
+        <button class="gallery-arrow gallery-next" id="gallery-next" type="button" aria-label="Next photo">›</button>
+      </div>
+      <div class="gallery-details">
+        <span class="eyebrow" id="gallery-category"></span>
+        <h2 id="gallery-title"></h2>
+        <p class="gallery-description" id="gallery-description"></p>
+        <div class="gallery-meta"><span class="price" id="gallery-price"></span><span id="gallery-position" aria-live="polite"></span></div>
+        <div class="gallery-dots" id="gallery-dots" aria-label="Choose a photo"></div>
+        <div class="gallery-thumbnails" id="gallery-thumbnails" aria-label="Product photos"></div>
+        <label class="gallery-size-label" for="gallery-size">Size and availability<select id="gallery-size"></select></label>
+        <button class="primary-button full-button" id="gallery-add" type="button">Add to basket</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="checkout-modal">
+    <section class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+      <button class="close-button modal-close" id="close-checkout" aria-label="Close checkout">×</button>
+      <span class="eyebrow">JUST A FEW DETAILS</span><h2 id="checkout-title">Place your order</h2>
+      <p class="modal-intro">Tell us how to reach you. We'll confirm availability, sizes and the final price.</p>
+      <form id="order-form">
+        <label>Your name *<input name="name" required placeholder="Your full name"></label>
+        <label>Phone number *<input name="phone" required type="tel" placeholder="e.g. 071 234 5678"></label>
+        <label>Email address<input name="email" type="email" placeholder="you@example.com"></label>
+        <label>How would you like to receive your order?
+          <select name="delivery"><option>Collection</option><option>Delivery (please confirm fee)</option><option>To be discussed</option></select>
+        </label>
+        <label>Address (if delivery)<textarea name="address" rows="2" placeholder="Your delivery address"></textarea></label>
+        <label>Size requests or other notes<textarea name="notes" rows="2" placeholder="Please include sizes or questions here"></textarea></label>
+        <div class="order-summary" id="order-summary"></div>
+        <button class="primary-button full-button" type="submit">Submit website order</button>
+        <button class="whatsapp-button full-button" type="button" id="whatsapp-order">Send order via WhatsApp ↗</button>
+        <p class="form-message" id="form-message" role="status"></p>
+      </form>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+    window.SHOP_PRODUCTS = {{ products|tojson }};
+    window.WHATSAPP_NUMBER = {{ whatsapp_number|tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
