@@ -7,43 +7,49 @@
   <title>{{ shop_name }} | Little styles, big smiles</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  <div class="announcement">Little looks. Lovely memories. Welcome to our boutique ♡</div>
+  <div class="announcement"><span aria-hidden="true">✦</span> Little looks for the biggest little adventures <span aria-hidden="true">✦</span></div>
   <header class="site-header">
-    <a class="brand" href="#"><span class="brand-mark">♡</span><span><strong>Little Angels</strong><small>B O U T I Q U E</small></span></a>
-    <nav><a href="#home">Home</a><a href="#shop">Shop</a><a href="#about">Our story</a><a href="#contact">Contact</a></nav>
-    <button class="cart-button" id="open-cart" aria-label="Open shopping basket">Basket <span id="cart-count">0</span></button>
+    <a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">✿</span><span><strong>Little Angels</strong><small>CHILDREN'S BOUTIQUE</small></span></a>
+    <nav aria-label="Main navigation"><a href="#home">Home</a><a href="#shop">Shop</a><a href="#about">Our story</a><a href="#contact">Contact</a></nav>
+    <button class="cart-button" id="open-cart" aria-label="Open shopping basket"><span aria-hidden="true">♡</span> Basket <span id="cart-count">0</span></button>
   </header>
 
   <main>
     <section class="hero" id="home">
       <div class="hero-copy">
-        <span class="eyebrow">MADE FOR LITTLE MOMENTS</span>
-        <h1>Little styles,<br><em>big smiles.</em></h1>
-        <p>Adorable outfits for the little ones who make every day brighter. Find a new favourite in our collection.</p>
-        <a class="primary-button" href="#shop">Explore the collection <span>↗</span></a>
-        <div class="hero-note"><span>♡</span> Carefully selected styles for little angels</div>
+        <span class="hero-badge"><span aria-hidden="true">✦</span> HAPPY LITTLE STYLES</span>
+        <h1>Made for little<br><em>adventures!</em></h1>
+        <p>Comfy, cheerful outfits for the little people who make every day more fun. Find their next favourite look.</p>
+        <a class="primary-button" href="#shop">Find their next favourite <span aria-hidden="true">→</span></a>
+        <div class="hero-note"><span aria-hidden="true">♡</span> Thoughtfully picked for growing smiles</div>
       </div>
-      <div class="hero-art">
-        <div class="hero-photo-frame"><img src="{{ url_for('static', filename='images/style-01.jpeg') }}" alt="A look from the Little Angels collection"></div>
-        <div class="round-stamp">LITTLE<br>ANGELS<br><span>♡</span></div>
-        <div class="hero-flower">✿</div>
+      <div class="hero-art" aria-label="A peek at the Little Angels collection">
+        <span class="hero-doodle hero-doodle-star" aria-hidden="true">✦</span>
+        <span class="hero-doodle hero-doodle-flower" aria-hidden="true">✿</span>
+        <div class="hero-main-photo">
+          <img src="{{ url_for('static', filename='images/style-01.jpeg') }}" alt="A child wearing a white floral-collar dress">
+          <span class="hero-photo-caption">Made for play. Ready for smiles.</span>
+        </div>
+        <div class="hero-small-photo hero-small-photo-one"><img src="{{ url_for('static', filename='images/style-05.jpeg') }}" alt="A blue sleeveless dress from the collection"></div>
+        <div class="hero-small-photo hero-small-photo-two"><img src="{{ url_for('static', filename='images/style-14.jpeg') }}" alt="A white top and yellow trousers from the collection"></div>
+        <div class="hero-new-sticker"><span>NEW</span><strong>Little<br>favourites!</strong></div>
       </div>
     </section>
 
     <section class="benefits">
-      <div><span>♡</span><p><strong>Sweet styles</strong><small>Lovely looks for little ones</small></p></div>
-      <div><span>✧</span><p><strong>Easy ordering</strong><small>Order online or on WhatsApp</small></p></div>
-      <div><span>☼</span><p><strong>Made with love</strong><small>A boutique full of charm</small></p></div>
+      <div><span aria-hidden="true">♡</span><p><strong>Picked with love</strong><small>Happy looks for little people</small></p></div>
+      <div><span aria-hidden="true">✧</span><p><strong>Easy peasy ordering</strong><small>Shop online or message us</small></p></div>
+      <div><span aria-hidden="true">☼</span><p><strong>Ready for play</strong><small>Comfort for every little day</small></p></div>
     </section>
 
     <section class="shop-section" id="shop">
       <div class="section-heading">
-        <div><span class="eyebrow">THE LITTLE ANGELS EDIT</span><h2>Shop the collection</h2><p>Find something lovely for your little one.</p></div>
-        <span class="collection-count">{{ products|length }} unique styles</span>
+        <div><span class="eyebrow">A LITTLE SOMETHING LOVELY</span><h2>Little looks they'll love</h2><p>Pick a favourite and take a closer peek.</p></div>
+        <span class="collection-count"><span aria-hidden="true">✿</span> {{ products|length }} sweet styles</span>
       </div>
       <div class="shop-tools">
         <label class="search-box"><span>⌕</span><input id="product-search" type="search" placeholder="Search the collection..." aria-label="Search products"></label>
@@ -68,20 +74,24 @@
         </article>
         {% endfor %}
       </div>
-      <p class="empty-state" id="empty-state" hidden>No styles match your search. Try another name.</p>
+      <p class="empty-state" id="empty-state" hidden>No little looks match your search. Try another name.</p>
     </section>
 
     <section class="story-section" id="about">
-      <div class="story-mark">♡</div><div><span class="eyebrow">A LITTLE ABOUT US</span><h2>For every little<br><em>special moment.</em></h2><p>Welcome to Little Angels Boutique, a happy place for discovering lovely children's clothing. We believe every little one deserves to feel comfortable, confident and extra special.</p></div>
+      <div class="story-photo">
+        <img src="{{ url_for('static', filename='images/style-14.jpeg') }}" alt="A child modelling a cheerful outfit from Little Angels Boutique">
+        <span class="story-photo-sticker" aria-hidden="true">♡</span>
+      </div>
+      <div class="story-copy"><span class="eyebrow">A LITTLE ABOUT US</span><h2>Small outfits.<br><em>Big memories.</em></h2><p>Little Angels is a happy place to discover lovely children's clothing. We choose feel-good looks for play dates, family days and all the moments in between.</p><div class="story-perks"><span>✿ Carefully chosen</span><span>♡ Made for little ones</span></div></div>
     </section>
 
     <section class="contact-section" id="contact">
-      <div><span class="eyebrow">WE'D LOVE TO HEAR FROM YOU</span><h2>Need a little help?</h2><p>Ask us about sizes, availability, pricing or your order. We're happy to help.</p></div>
-      <a class="primary-button" id="contact-whatsapp" href="#" target="_blank" rel="noopener">Chat with us on WhatsApp ↗</a>
+      <div><span class="eyebrow">HERE FOR THE LITTLE DETAILS</span><h2>Need a hand?</h2><p>Ask us about sizes, availability, pricing or your order. We're always happy to help.</p></div>
+      <a class="primary-button" id="contact-whatsapp" href="#" target="_blank" rel="noopener"><span aria-hidden="true">♡</span> Say hello on WhatsApp <span aria-hidden="true">→</span></a>
     </section>
   </main>
 
-  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">♡</span><span><strong>Little Angels</strong><small>B O U T I Q U E</small></span></a><p>Little styles, big smiles. © <span id="year"></span> Little Angels Boutique</p><a href="/admin/login">Shop admin</a></footer>
+  <footer><a class="brand footer-brand" href="#home"><span class="brand-mark" aria-hidden="true">✿</span><span><strong>Little Angels</strong><small>CHILDREN'S BOUTIQUE</small></span></a><p>Little looks for big little adventures. © <span id="year"></span> Little Angels Boutique</p><a href="/admin/login">Shop admin</a></footer>
 
   <div class="drawer-backdrop" id="drawer-backdrop"></div>
   <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping basket" aria-hidden="true">
