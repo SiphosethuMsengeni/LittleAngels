@@ -49,7 +49,7 @@ The supplied products start with zero stock because the actual quantities and si
 1. Create a private GitHub repository and push this project folder to it. Keep `.env`, `orders.jsonl`, local uploads, and all service keys out of GitHub; `.gitignore` excludes local data and secrets.
 2. Create a Supabase project. In its SQL Editor, run [`supabase/schema.sql`](./supabase/schema.sql) to create the catalog and orders tables, the atomic order/stock update function, and the private image bucket.
 3. Copy the Supabase project URL and its `service_role` key from the Supabase project settings. Keep the key private; add it only as a Render environment variable, never to GitHub or chat.
-4. In Render, choose **New → Blueprint** and connect the GitHub repository containing `render.yaml`. Supply `ADMIN_PIN`, `WHATSAPP_NUMBER`, `SUPABASE_URL`, and `SUPABASE_SERVICE_ROLE_KEY` when prompted. Render generates `SECRET_KEY`.
+4. In Render, choose **New → Blueprint** and connect the GitHub repository containing `render.yaml`. The boutique WhatsApp contact is preconfigured; supply `ADMIN_PIN`, `SUPABASE_URL`, and `SUPABASE_SERVICE_ROLE_KEY` when prompted. Render generates `SECRET_KEY`.
 5. Deploy, then open the Render-provided `onrender.com` address and `/admin/login`. Add the boutique's real sizes and stock before taking orders.
 
 The Render Blueprint uses its free web-service plan. Its filesystem is temporary, so the hosted app is configured to keep catalog and stock data in Supabase Postgres and new photos in the private Supabase Storage bucket. Website orders and the matching stock decrement are written together in one database transaction. Supabase free-tier limits and project-pause policies apply; review the provider's current limits and keep backups of order data.
