@@ -1,10 +1,10 @@
 # Little Angels Boutique
 
-A children's clothing boutique web application built with Python Flask, HTML, CSS and JavaScript. The 29 photos from the supplied ZIP are included in `static/images/`.
+A children's clothing boutique web application built with Python Flask, HTML, CSS and JavaScript. The 29 original photos are preserved in `static/images/`; the catalogue also includes 15 additional photos.
 
 ## Features
 - Responsive boutique storefront and searchable product gallery
-- Seven visually grouped products using all 29 supplied clothing photographs
+- 17 product listings using all 44 clothing photographs, with related views grouped into one item
 - Admin product create, view, update and delete
 - Product photo uploads and size-by-size stock management
 - Size selection and stock-aware shopping basket
@@ -54,5 +54,14 @@ The supplied products start with zero stock because the actual quantities and si
 
 The Render Blueprint uses its free web-service plan. Its filesystem is temporary, so the hosted app is configured to keep catalog and stock data in Supabase Postgres and new photos in the private Supabase Storage bucket. Website orders and the matching stock decrement are written together in one database transaction. Supabase free-tier limits and project-pause policies apply; review the provider's current limits and keep backups of order data.
 
+## Host on Vercel with durable product storage
+Vercel Functions do not provide a persistent writable filesystem. The JSON-file fallback is only for local development; production catalog edits, orders, stock changes, and uploaded images require Supabase.
+
+1. Create a Supabase project and run [`supabase/schema.sql`](./supabase/schema.sql) in its SQL Editor.
+2. In Vercel, open the `littleangels` project **Settings → Environment Variables**. Add `STORAGE_BACKEND` with value `supabase`, `SUPABASE_URL` with the Supabase project URL, and `SUPABASE_SERVICE_ROLE_KEY` with its service-role key. Set the variables for **Production** (and Preview if you use preview deployments). The app defaults `SUPABASE_BUCKET` to `little-angels-images`; set that variable only if you chose a different bucket name.
+3. Keep the service-role key private. Add it directly in Vercel's dashboard, not to GitHub or chat, then redeploy the Production deployment so the new environment is applied.
+
+Until Supabase is configured, the admin page displays a warning and catalog, stock, photo, and order writes are disabled on Vercel rather than appearing to save to temporary files.
+
 ## Product photo note
-The original 29 photos are grouped into seven products in `catalog.json`. The original files in `static/images/` are retained. Additional photos uploaded from the admin area are stored locally under `static/uploads/` or in Supabase Storage when hosted with `STORAGE_BACKEND=supabase`.
+The original 29 photos are preserved unchanged. The additional 15 uploaded photos are included as separate styles or grouped with matching existing products; two visually similar white outfit listings are flagged for manual review in the admin. The catalogue contains 17 products and 44 product photos. Model photos shown in the catalogue use cartoonized face copies, including the homepage hero; the original files remain untouched. Additional photos uploaded from the admin area are stored locally under `static/uploads/` or in Supabase Storage when hosted with `STORAGE_BACKEND=supabase`.

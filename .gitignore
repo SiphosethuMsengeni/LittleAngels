@@ -9,3 +9,4 @@ orders.jsonl
 static/uploads/
 .pytest_cache/
 .DS_Store
+.vercel

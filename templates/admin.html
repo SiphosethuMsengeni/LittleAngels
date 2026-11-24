@@ -15,6 +15,7 @@
     {% with messages=get_flashed_messages(with_categories=true) %}
       {% for category,message in messages %}<p class="flash {{ category }}">{{ message }}</p>{% endfor %}
     {% endwith %}
+    {% if storage_warning %}<p class="flash error" role="alert">{{ storage_warning }}</p>{% endif %}
 
     <section class="admin-panel">
       <h2>Product inventory</h2>
@@ -25,6 +26,7 @@
           <form method="post" action="{{ url_for('update_product', product_id=p.id) }}" enctype="multipart/form-data" class="admin-product-form">
             <label class="admin-image-main"><img src="{{ p.images[0]|product_image_url }}" alt="{{ p.name }}"></label>
             <strong class="admin-product-heading">{{ p.name }}</strong>
+            {% if p.review_note %}<p class="admin-review-note">{{ p.review_note }}</p>{% endif %}
             <div class="admin-image-list">
               {% for image in p.images %}
               <label class="admin-image-option">

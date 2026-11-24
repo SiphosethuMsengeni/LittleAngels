@@ -659,6 +659,7 @@ footer p, footer > a { font-size: 11px; }
 .admin-image-main { display: block !important; margin: 0 !important; }
 .admin-image-main img { display: block; width: 100%; height: 180px; border-radius: 12px; object-fit: cover; }
 .admin-product-heading { display: block; margin: 10px 0; color: var(--navy); font: 500 17px var(--display); }
+.admin-review-note { padding: 9px; border-radius: 9px; background: #fff5d5; color: #80621a; font-size: 10px; line-height: 1.5; }
 .admin-image-list { display: flex; gap: 8px; overflow-x: auto; padding: 8px 0; }
 .admin-image-option { flex: 0 0 70px !important; margin: 0 !important; font-size: 9px !important; }
 .admin-image-option img { display: block; width: 68px; height: 68px; border-radius: 9px; object-fit: cover; }

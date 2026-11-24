@@ -12,7 +12,7 @@ const $ = (id) => document.getElementById(id);
 const money = (p) => p == null ? "Price on request" : `R ${Number(p).toFixed(2)}`;
 const imageUrl = (filename) => filename.startsWith("uploads/")
   ? `/media/${encodeURIComponent(filename.slice("uploads/".length))}`
-  : `/static/images/${encodeURIComponent(filename)}`;
+  : `/static/images/${filename.split("/").map(encodeURIComponent).join("/")}`;
 let activeProduct = null;
 let activePhotoIndex = 0;
 let touchStartX = null;

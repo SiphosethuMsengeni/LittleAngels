@@ -5,7 +5,7 @@
     "category": "Kidswear",
     "price": null,
     "sizes": [{"name": "One size", "stock": 0}],
-    "images": ["style-01.jpeg", "style-09.jpeg", "style-20.jpeg", "style-28.jpeg"],
+    "images": ["cartoon/style-01.jpeg", "cartoon/style-09.jpeg", "cartoon/style-20.jpeg", "cartoon/style-28.jpeg"],
     "description": "A white dress with a floral collar."
   },
   {
@@ -14,7 +14,7 @@
     "category": "Kidswear",
     "price": null,
     "sizes": [{"name": "One size", "stock": 0}],
-    "images": ["style-02.jpeg", "style-11.jpeg", "style-15.jpeg", "style-24.jpeg", "style-25.jpeg"],
+    "images": ["cartoon/style-02.jpeg", "cartoon/style-11.jpeg", "cartoon/style-15.jpeg", "cartoon/style-24.jpeg", "cartoon/style-25.jpeg", "cartoon/new-white-graphic-tee-trousers-back.jpeg", "cartoon/new-white-graphic-tee-trousers-front.jpeg"],
     "description": "A graphic tee paired with patterned trousers."
   },
   {
@@ -23,7 +23,7 @@
     "category": "Kidswear",
     "price": null,
     "sizes": [{"name": "One size", "stock": 0}],
-    "images": ["style-03.jpeg", "style-07.jpeg", "style-14.jpeg"],
+    "images": ["cartoon/style-03.jpeg", "cartoon/style-07.jpeg", "cartoon/style-14.jpeg"],
     "description": "A white top paired with yellow trousers."
   },
   {
@@ -32,7 +32,7 @@
     "category": "Kidswear",
     "price": null,
     "sizes": [{"name": "One size", "stock": 0}],
-    "images": ["style-04.jpeg", "style-19.jpeg", "style-26.jpeg"],
+    "images": ["cartoon/style-04.jpeg", "cartoon/style-19.jpeg", "cartoon/style-26.jpeg", "cartoon/new-pink-collared-dress-flatlay.jpeg"],
     "description": "A sleeveless pink collared dress."
   },
   {
@@ -41,7 +41,7 @@
     "category": "Kidswear",
     "price": null,
     "sizes": [{"name": "One size", "stock": 0}],
-    "images": ["style-05.jpeg", "style-08.jpeg", "style-12.jpeg", "style-22.jpeg", "style-29.jpeg"],
+    "images": ["cartoon/style-05.jpeg", "cartoon/style-08.jpeg", "cartoon/style-12.jpeg", "cartoon/style-22.jpeg", "cartoon/style-29.jpeg", "cartoon/new-blue-sleeveless-dress-detail.jpeg"],
     "description": "A light blue sleeveless dress."
   },
   {
@@ -50,7 +50,7 @@
     "category": "Kidswear",
     "price": null,
     "sizes": [{"name": "One size", "stock": 0}],
-    "images": ["style-06.jpeg", "style-13.jpeg", "style-16.jpeg", "style-18.jpeg", "style-21.jpeg", "style-27.jpeg"],
+    "images": ["cartoon/style-06.jpeg", "cartoon/style-13.jpeg", "cartoon/style-16.jpeg", "cartoon/style-18.jpeg", "cartoon/style-21.jpeg", "cartoon/style-27.jpeg", "cartoon/new-pink-embroidered-waist-dress.jpeg"],
     "description": "A pink dress with a decorative waist panel."
   },
   {
@@ -59,7 +59,99 @@
     "category": "Kidswear",
     "price": null,
     "sizes": [{"name": "One size", "stock": 0}],
-    "images": ["style-10.jpeg", "style-17.jpeg", "style-23.jpeg"],
+    "images": ["cartoon/style-10.jpeg", "cartoon/style-17.jpeg", "cartoon/style-23.jpeg"],
     "description": "A cream vest and matching trousers."
+  },
+  {
+    "id": 8,
+    "name": "Yellow Floral Dress",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["cartoon/new-yellow-floral-dress.jpeg"],
+    "description": "A soft yellow dress with delicate floral details."
+  },
+  {
+    "id": 9,
+    "name": "Floral Tee & Brown Shorts",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["cartoon/new-floral-tee-brown-shorts.jpeg"],
+    "description": "A floral graphic tee paired with brown shorts."
+  },
+  {
+    "id": 10,
+    "name": "Ivory Lace Top & Trousers",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["cartoon/new-ivory-lace-top-trousers.jpeg"],
+    "description": "A light ivory top and matching trousers.",
+    "review_note": "Manual review: compare with the separate Ivory Blouse & Trousers listing before combining."
+  },
+  {
+    "id": 11,
+    "name": "White Blouse & Blue Shorts",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["cartoon/new-white-blouse-blue-shorts.jpeg"],
+    "description": "A breezy white blouse paired with blue shorts."
+  },
+  {
+    "id": 12,
+    "name": "Graphic Tee & Brown Skirt",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["cartoon/new-graphic-tee-brown-skirt.jpeg"],
+    "description": "A playful graphic tee with a brown skirt."
+  },
+  {
+    "id": 13,
+    "name": "Ivory Blouse & Trousers",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["cartoon/new-ivory-blouse-trousers-hat.jpeg"],
+    "description": "A light blouse and trousers styled with a sun hat.",
+    "review_note": "Manual review: compare with the separate Ivory Lace Top & Trousers listing before combining."
+  },
+  {
+    "id": 14,
+    "name": "Pink Printed Dress",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["cartoon/new-pink-printed-dress.jpeg"],
+    "description": "A soft pink dress with sweet embroidered details."
+  },
+  {
+    "id": 15,
+    "name": "White Tiered Lace Dress",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["cartoon/new-white-tiered-lace-dress.jpeg"],
+    "description": "A white tiered dress with delicate lace trim."
+  },
+  {
+    "id": 16,
+    "name": "Ivory Top & Olive Trousers",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["cartoon/new-ivory-top-olive-trousers.jpeg"],
+    "description": "An ivory top paired with olive trousers."
+  },
+  {
+    "id": 17,
+    "name": "Red Cardigan & Gingham Dress",
+    "category": "Kidswear",
+    "price": null,
+    "sizes": [{"name": "One size", "stock": 0}],
+    "images": ["cartoon/new-red-cardigan-gingham-dress.jpeg"],
+    "description": "A red cardigan layered over a gingham dress."
   }
 ]

@@ -41,6 +41,12 @@ if STORAGE_BACKEND not in {"local", "supabase"}:
 SUPABASE_ENABLED = STORAGE_BACKEND == "supabase" or bool(SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY)
 if SUPABASE_ENABLED and not (SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY):
     raise RuntimeError("Set both SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to enable Supabase.")
+ON_VERCEL = os.environ.get("VERCEL") == "1" or bool(os.environ.get("VERCEL_ENV"))
+PERSISTENCE_CONFIGURATION_MESSAGE = (
+    "Persistent storage is not configured for this Vercel deployment. Set "
+    "STORAGE_BACKEND=supabase, SUPABASE_URL, and SUPABASE_SERVICE_ROLE_KEY "
+    "in Vercel, then run supabase/schema.sql in that Supabase project."
+)
 catalog_lock = threading.RLock()
 
 app = Flask(__name__)
@@ -55,6 +61,11 @@ class SupabaseError(RuntimeError):
     def __init__(self, status_code, message):
         super().__init__(message)
         self.status_code = status_code
+
+
+def require_persistent_storage():
+    if ON_VERCEL and not SUPABASE_ENABLED:
+        raise RuntimeError(PERSISTENCE_CONFIGURATION_MESSAGE)
 
 
 def supabase_request(method, path, payload=None, content_type="application/json", prefer=None, raw_response=False):
@@ -131,6 +142,7 @@ def load_products():
 
 
 def save_products(products):
+    require_persistent_storage()
     if SUPABASE_ENABLED:
         save_supabase_catalog(products)
         return
@@ -209,6 +221,7 @@ def parse_product_form(form):
 
 
 def save_uploaded_images(files):
+    require_persistent_storage()
     validated_files = []
     for image in files:
         if not image or not image.filename:
@@ -339,6 +352,8 @@ def place_order():
     items = data.get("items", [])
     if not customer["name"] or not customer["phone"] or not isinstance(items, list) or not items:
         return jsonify({"ok": False, "message": "Please provide your name, phone number and at least one item."}), 400
+    if ON_VERCEL and not SUPABASE_ENABLED:
+        return jsonify({"ok": False, "message": PERSISTENCE_CONFIGURATION_MESSAGE}), 503
     with catalog_lock:
         products = load_products()
         products_by_id = {product["id"]: product for product in products}
@@ -442,7 +457,14 @@ def admin():
     products = load_products()
     orders = load_orders()
     orders.reverse()
-    return render_template("admin.html", products=products, orders=orders, shop_name=app.config["SHOP_NAME"])
+    storage_warning = PERSISTENCE_CONFIGURATION_MESSAGE if ON_VERCEL and not SUPABASE_ENABLED else None
+    return render_template(
+        "admin.html",
+        products=products,
+        orders=orders,
+        shop_name=app.config["SHOP_NAME"],
+        storage_warning=storage_warning,
+    )
 
 
 @app.route("/admin/products/create", methods=["POST"])
@@ -466,6 +488,10 @@ def create_product():
         logging.exception("Could not create a product.")
         remove_uploaded_images(images)
         flash("The product could not be saved. Please try again.", "error")
+    except RuntimeError as exc:
+        logging.exception("Product creation failed because persistent storage is unavailable.")
+        remove_uploaded_images(images)
+        flash(str(exc), "error")
     else:
         flash("Product created successfully.", "success")
     return redirect(url_for("admin"))
@@ -497,6 +523,10 @@ def update_product(product_id):
         logging.exception("Could not update product %s.", product_id)
         remove_uploaded_images(new_images)
         flash("The product could not be updated. Please try again.", "error")
+    except RuntimeError as exc:
+        logging.exception("Product update failed because persistent storage is unavailable.")
+        remove_uploaded_images(new_images)
+        flash(str(exc), "error")
     else:
         flash("Product updated successfully.", "success")
     return redirect(url_for("admin"))
@@ -516,6 +546,9 @@ def delete_product(product_id):
             except OSError:
                 logging.exception("Could not delete product %s.", product_id)
                 flash("The product could not be deleted. Please try again.", "error")
+            except RuntimeError as exc:
+                logging.exception("Product deletion failed because persistent storage is unavailable.")
+                flash(str(exc), "error")
             else:
                 flash("Product deleted. Its photo files were kept.", "success")
     return redirect(url_for("admin"))
